@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title> Meal schedule </title>
+	<link rel="stylesheet" href="css\styles.css">
+</head>
+<body>
+	<div class="sideBarLeft"></div>
+	<div class="sideBarRight"></div>
+	<h1> Your Meal Plan </h1>
+	<div style="margin: auto; text-align:center; padding-bottom: 1%; color: rgb(62,136,91);"> 
+		<span style="font-size: 20px;"> <button onclick="previousWeek()">&#171;</button> <span id=weekOf></span> <button onclick="nextWeek()">&#187;</button></span> 
+	</div>
+	<table id="tableTemplate">
+		<thead>
+			<tr>
+				<th scope="col"></th>
+				<th scope="col" class="Mon"> Monday </th>
+				<th scope="col" class="Tue"> Tuesday </th>
+				<th scope="col" class="Wed"> Wednesday </th>
+				<th scope="col" class="Thu"> Thursday </th>
+				<th scope="col" class="Fri"> Friday </th>
+				<th scope="col" class="Sat"> Saturday </th>
+				<th scope="col" class="Sun"> Sunday </th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr> 
+				<th scope="col" rowspan="2"> Breakfast </th>
+				<td> <button class="Btn"> Add recipe </button> </td>
+				<td> <button class="Btn"> Add recipe </button> </td>
+				<td> <button class="Btn"> Add recipe </button> </td>
+				<td> <button class="Btn"> Add recipe </button> </td>
+				<td> <button class="Btn"> Add recipe </button> </td>
+				<td> <button class="Btn"> Add recipe </button> </td>
+				<td> <button class="Btn"> Add recipe </button> </td>
+			</tr>
+			<tr> 
+				<td> Ingredients </td>
+				<td> Ingredients </td>
+				<td> Ingredients </td>
+				<td> Ingredients </td>
+				<td> Ingredients </td>
+				<td> Ingredients </td>
+				<td> Ingredients </td>
+			</tr>
+			<tr> 
+				<th scope="col" rowspan="2"> Lunch </th>
+				<td> <button class="Btn"> Add recipe </button> </td>
+				<td> <button class="Btn"> Add recipe </button> </td>
+				<td> <button class="Btn"> Add recipe </button> </td>
+				<td> <button class="Btn"> Add recipe </button> </td>
+				<td> <button class="Btn"> Add recipe </button> </td>
+				<td> <button class="Btn"> Add recipe </button> </td>
+				<td> <button class="Btn"> Add recipe </button> </td>
+			</tr>
+			<tr> 
+				<td> Ingredients </td>
+				<td> Ingredients </td>
+				<td> Ingredients </td>
+				<td> Ingredients </td>
+				<td> Ingredients </td>
+				<td> Ingredients </td>
+				<td> Ingredients </td>
+			</tr>
+			<tr> 
+				<th scope="col" rowspan="2"> Dinner </th>
+				<td> <button class="Btn"> Add recipe </button> </td>
+				<td> <button class="Btn"> Add recipe </button> </td>
+				<td> <button class="Btn"> Add recipe </button> </td>
+				<td> <button class="Btn"> Add recipe </button> </td>
+				<td> <button class="Btn"> Add recipe </button> </td>
+				<td> <button class="Btn"> Add recipe </button> </td>
+				<td> <button class="Btn"> Add recipe </button> </td>
+			</tr>
+			<tr> 
+				<td> Ingredients </td>
+				<td> Ingredients </td>
+				<td> Ingredients </td>
+				<td> Ingredients </td>
+				<td> Ingredients </td>
+				<td> Ingredients </td>
+				<td> Ingredients </td>
+			</tr>
+			<tr>
+				<th scope="col" rowspan="2"> Snacks </th>
+				<td> <button class="Btn"> Add recipe </button> </td>
+				<td> <button class="Btn"> Add recipe </button> </td>
+				<td> <button class="Btn"> Add recipe </button> </td>
+				<td> <button class="Btn"> Add recipe </button> </td>
+				<td> <button class="Btn"> Add recipe </button> </td>
+				<td> <button class="Btn"> Add recipe </button> </td>
+				<td> <button class="Btn"> Add recipe </button> </td>
+			</tr>
+			<tr> 
+				<td> Ingredients </td>
+				<td> Ingredients </td>
+				<td> Ingredients </td>
+				<td> Ingredients </td>
+				<td> Ingredients </td>
+				<td> Ingredients </td>
+				<td> Ingredients </td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<div id="mymodal" class="modal"></div>
+	<tbody id="calendar-body"></tbody>
+
+
+	<!-- Template for dynamic modal -->
+	<div class="modal-content" id="modalContent" style="display:none">
+		<span class="close">&times;</span>
+		<h2 >Create New Recipe</h2>
+
+		<label for="recipeName"><h3>Recipe Name</h3></label>
+		<input type="text" placeholder="Enter recipe name" name="recipeName" style="width:96%; margin-bottom:0.2%" class="recipeInput">
+		<button onclick="submit()">Submit recipe</button>
+
+		<div class="row">
+			<div class="columnOne">
+				<h3>Add ingredients</h3>
+				<label for="ingredientOne" class="labelIngredient">1.</label>
+				<input type="text" placeholder="Enter ingredient" name="ingredientOne" class="ingredientInput">
+				<br>
+				<label for="ingredientTwo" class="labelIngredient">2.</label>
+				<input type="text" placeholder="Enter ingredient" name="ingredientTwo" class="ingredientInput">
+				<br>
+				<label for="ingredientThree" class="labelIngredient">3.</label>
+				<input type="text" placeholder="Enter ingredient" name="ingredientThree" class="ingredientInput">
+				<br>
+				<label for="ingredientFour" class="labelIngredient">4.</label>
+				<input type="text" placeholder="Enter ingredient" name="ingredientFour" class="ingredientInput">
+				<br>
+				<label for="ingredientFive" class="labelIngredient">5.</label>
+				<input type="text" placeholder="Enter ingredient" name="ingredientFive" class="ingredientInput">
+				<button onclick="add_ingredient()" class=dynamicIngredient id=dynamicIngredient> Add ingredient </button>
+			</div>
+
+			<div class="columnTwo" id="quantity">
+				<h3>Q-ty</h3>
+				<label for="ingredientOne"></label>
+				<input type="text" placeholder="x" name="ingredientOne" class="quantityInput">
+				<label for="ingredientTwo"></label>
+				<input type="text" placeholder="x" name="ingredientTwo" class="quantityInput">
+				<label for="ingredientThree"></label>
+				<input type="text" placeholder="x" name="ingredientThree" class="quantityInput">
+				<label for="ingredientFour"></label>
+				<input type="text" placeholder="x" name="ingredientFour" class="quantityInput">
+				<label for="ingredientFive"></label>
+				<input type="text" placeholder="x" name="ingredientFive" class="quantityInput">
+			</div>
+
+			<div class="columnThree" id="unit">
+				<h3>Unit</h3>
+				<label for="ingredientOne"></label>
+				<input type="text" name="ingredientOne" class="quantityInput">
+				<label for="ingredientTwo"></label>
+				<input type="text" name="ingredientTwo" class="quantityInput">
+				<label for="ingredientThree"></label>
+				<input type="text" name="ingredientThree" class="quantityInput">
+				<label for="ingredientFour"></label>
+				<input type="text" name="ingredientFour" class="quantityInput">
+				<label for="ingredientFive"></label>
+				<input type="text" name="ingredientFive" class="quantityInput">
+			</div>
+	
+	
+			<div class="columnFour" id="instructions">
+				<h3>Add instructions</h3>
+				<label for="recipeInstructions" class="labelInstruction">1.</label>
+				<input type="text" placeholder="Enter instructions" name="recipeInstructions" class="instructionsInput">
+				<br>
+				<label for="recipeInstructions" class="labelInstruction">2.</label>
+				<input type="text" placeholder="Enter instructions" name="recipeInstructions" class="instructionsInput">
+				<br>
+				<label for="recipeInstructions" class="labelInstruction">3.</label>
+				<input type="text" placeholder="Enter instructions" name="recipeInstructions" class="instructionsInput">
+				<br>
+				<label for="recipeInstructions" class="labelInstruction">4.</label>
+				<input type="text" placeholder="Enter instructions" name="recipeInstructions" class="instructionsInput">
+				<br>
+				<label for="recipeInstructions" class="labelInstruction">5.</label>
+				<input type="text" placeholder="Enter instructions" name="recipeInstructions" class="instructionsInput">
+				<button onclick="add_instruction()" class =dynamicInstruction id=dynamicInstruction> Add instruction </button>
+			</div>
+		</div>
+	</div>
+		<!-- Template for dynamic input -->
+		<div id="templateIngredient" style="display:none">
+			<label for="ingredientOne" class="labelIngredient">1.</label>
+			<input type="text" placeholder="Enter ingredient" name="ingredientOne" class="ingredientInput">
+		</div>
+
+		<div id="templateQuantity" style="display:none">
+			<label for="ingredientOne" id="counter"></label>
+			<input type="text" placeholder="x" name="ingredientOne" class="quantityInput">
+		</div>
+
+		<div id="templateUnit" style="display:none">
+			<label for="ingredientOne"></label>
+			<input type="text" name="ingredientOne" class="quantityInput">
+		</div>
+
+		<div id="templateInstruction" style="display:none">
+			<label for="recipeInstructions" class="labelInstruction">1.</label>
+			<input type="text" placeholder="Enter instructions" name="recipeInstructions" class="instructionsInput">
+		</div>
+
+</body>
+<script>
+	let btn = document.getElementsByClassName("Btn");
+	let modal = document.getElementById("mymodal");
+	let span = document.getElementsByClassName("close");
+	let lblIngr = document.getElementsByClassName("labelIngredient");
+	let maxWidthIngr = 0;
+	let lblInstr = document.getElementsByClassName("labelInstruction");
+	let maxWidthInstr = 0;
+	let modalId = null;
+	let ingredientId = null;
+	let ingredientsId = null;
+	let instructionId = null;
+	let instructionsId = null; 
+	let btnID = null;
+	let monday = new Date();
+	monday.setDate(monday.getDate() - monday.getDay()+1);
+	let currentMonday = monday;
+	let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+	document.getElementById("weekOf").innerHTML = "Week of " + String(monday.getDate()) + "&nbsp" + months[monday.getMonth()] + "&nbsp" + String(monday.getFullYear());
+
+
+	function showSchedule() {
+		let scheduleId = "mon"+String(monday.getFullYear()) + String(monday.getMonth()+1).padStart(2,'0') + String(monday.getDate()).padStart(2,'0');
+
+		if (document.getElementById(scheduleId) == null) {
+			for (let schedulePrevious of document.getElementsByTagName("table")){
+				if (schedulePrevious.id != scheduleId) {
+					schedulePrevious.style.display = "none";
+				}
+			}	
+			let scheduleNew = document.createElement("table");
+			scheduleNew.innerHTML = document.getElementById("tableTemplate").innerHTML;
+			scheduleNew.id = scheduleId;
+			scheduleNew.getElementsByClassName("Mon")[0].innerHTML = "Monday" + "<br>" + String(monday.getDate()) + "&nbsp" + months[monday.getMonth()] + "&nbsp" + String(monday.getFullYear());
+			scheduleNew.getElementsByClassName("Tue")[0].innerHTML = "Tuesday" + "<br>" + String(monday.getDate() + 1) + "&nbsp" + months[monday.getMonth()] + "&nbsp" + String(monday.getFullYear());
+			scheduleNew.getElementsByClassName("Wed")[0].innerHTML = "Wednesday" + "<br>" + String(monday.getDate() + 2) + "&nbsp" + months[monday.getMonth()] + "&nbsp" + String(monday.getFullYear());
+			scheduleNew.getElementsByClassName("Thu")[0].innerHTML = "Thursday" + "<br>" + String(monday.getDate() + 3) + "&nbsp" + months[monday.getMonth()] + "&nbsp" + String(monday.getFullYear());
+			scheduleNew.getElementsByClassName("Fri")[0].innerHTML = "Friday" + "<br>" + String(monday.getDate() + 4) + "&nbsp" + months[monday.getMonth()] + "&nbsp" + String(monday.getFullYear());
+			scheduleNew.getElementsByClassName("Sat")[0].innerHTML = "Saturday" + "<br>" + String(monday.getDate() + 5) + "&nbsp" + months[monday.getMonth()] + "&nbsp" + String(monday.getFullYear());
+			scheduleNew.getElementsByClassName("Sun")[0].innerHTML = "Sunday" + "<br>" + String(monday.getDate() + 6) + "&nbsp" + months[monday.getMonth()] + "&nbsp" + String(monday.getFullYear());
+			document.getElementsByTagName("body")[0].appendChild(scheduleNew);
+			addRecipe();
+		} else {
+			for (let schedulePrevious of document.getElementsByTagName("table")){
+				if (schedulePrevious.id != scheduleId) {
+					schedulePrevious.style.display = "none";
+				} else {
+					schedulePrevious.style.display = "table";
+					
+				}
+			}	
+
+		}
+	}
+
+	showSchedule();
+
+	function nextWeek() {
+		monday.setDate(monday.getDate() + 7);
+		document.getElementById("weekOf").innerHTML = "Week of " + String(monday.getDate()) + "&nbsp" + months[monday.getMonth()] + "&nbsp" + String(monday.getFullYear());
+		showSchedule();
+	}
+
+	function previousWeek() {
+		monday.setDate(monday.getDate() - 7);
+		document.getElementById("weekOf").innerHTML = "Week of " + String(monday.getDate()) + "&nbsp" + months[monday.getMonth()] + "&nbsp" + String(monday.getFullYear());
+		showSchedule();
+	}
+
+	function addRecipe () {
+		for (let i = 0; i < btn.length; i++) {
+			let thisBtn = btn[i];
+			thisBtn.onclick = function () {
+				btnID = "btn" + String(i);
+				thisBtn.id = btnID;
+				modalId =  "modal" + String(i);	
+				ingredientId = modalId + "ingredient";
+				ingredientsId = modalId + "ingredients";
+				instructionId = modalId + "instruction";
+				instructionsId = modalId + "instructions";
+				quantityId = modalId + "quantity";
+				unitId = modalId + "unit";
+				modal.style.display = "block";
+
+				if (document.getElementById(modalId) == null) {
+					for (let modalPrevious of modal.getElementsByClassName("modal-content")){
+						if (modalPrevious.id !== modalId) {
+							modalPrevious.style.display = "none";
+						}
+					}
+						let modalNew = document.createElement("div");
+						modalNew.innerHTML = document.getElementById("modalContent").innerHTML;
+						modalNew.classList.add("modal-content");
+						modalNew.id = modalId;
+						modalNew.getElementsByClassName("dynamicIngredient")[0].id = ingredientId;
+						modalNew.getElementsByClassName("columnOne")[0].id = ingredientsId;
+						modalNew.getElementsByClassName("dynamicInstruction")[0].id = instructionId;
+						modalNew.getElementsByClassName("columnFour")[0].id = instructionsId;
+						modalNew.getElementsByClassName("columnTwo")[0].id = quantityId;
+						modalNew.getElementsByClassName("columnThree")[0].id = unitId;
+						modal.appendChild(modalNew);			 
+				} else {
+						for (let modalPrevious of modal.getElementsByClassName("modal-content")){
+							if (modalPrevious.id !== modalId) {
+								modalPrevious.style.display = "none";
+							} else {
+								modalPrevious.style.display = "block";
+
+							}
+						}
+				}
+				
+
+
+				for (let i = 0; i < lblIngr.length; i++) {
+					maxWidthIngr = Math.max(maxWidthIngr, lblIngr[i].clientWidth);
+				}
+				for (let i=0; i<lblIngr.length; i++) {
+					lblIngr[i].style.width = maxWidthIngr + "px";
+				}
+				for (let i = 0; i < lblInstr.length; i++) {
+					maxWidthInstr = Math.max(maxWidthInstr, lblInstr[i].clientWidth);
+				}
+				for (let i=0; i<lblInstr.length; i++) {
+					lblInstr[i].style.width = maxWidthInstr + "px";
+				}
+
+				for (let m=0; m<span.length; m++) {
+					let thisSpan = span[m];
+					thisSpan.onclick = function () {
+						modal.style.display = "none";
+					}
+				}		
+			} 
+		}	
+	}
+
+
+		function submit() {
+			let userInput = document.getElementById(modalId).getElementsByClassName("recipeInput")[0].value;
+			btnCurrent = document.getElementById(btnID);
+			btnCurrent.innerText = userInput;
+			btnCurrent.classList.remove("Btn");
+			btnCurrent.classList.add("BtnNew");
+			
+		}	
+
+	window.onclick = function (event) {
+		if (event.target == modal) {	
+			modal.style.display = "none";
+		}
+	}
+
+	
+	function add_ingredient() {
+		let ingredientCounter = document.getElementById(modalId).getElementsByClassName("labelIngredient").length;
+		let btn = document.getElementById(ingredientId);
+		let div1 = document.createElement("div");
+		div1.innerHTML = document.getElementById("templateIngredient").innerHTML;
+		div1.querySelector("label").innerText = ingredientCounter + 1 +".";
+		let ingredients = document.getElementById(ingredientsId);
+		ingredients.insertBefore(div1, btn);
+		let div2 = document.createElement("div");
+		div2.innerHTML = document.getElementById("templateQuantity").innerHTML;
+		document.getElementById(quantityId).appendChild(div2);
+		let div3 = document.createElement("div");
+		div3.innerHTML = document.getElementById("templateUnit").innerHTML;
+		document.getElementById(unitId).appendChild(div3);
+	}
+
+
+	function add_instruction() {
+		let instructionCounter = document.getElementById(modalId).getElementsByClassName("labelInstruction").length;
+		let btn = document.getElementById(instructionId);
+		let div1 = document.createElement("div");
+		div1.innerHTML = document.getElementById("templateInstruction").innerHTML;
+		div1.querySelector("label").innerText = instructionCounter + 1 +".";
+		let instruction = document.getElementById(instructionsId);
+		instruction.insertBefore(div1, btn);
+	}
+
+
+
+</script>
+</html>
